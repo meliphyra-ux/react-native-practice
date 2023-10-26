@@ -1,9 +1,21 @@
 import MaskedView from '@react-native-masked-view/masked-view';
-import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React, {useState} from 'react';
+import {
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {RootStackParamList} from '../App';
 
-const Welcome = () => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
+
+const Welcome = ({navigation}: Props) => {
+  const [userInput, setUserInput] = useState('');
   return (
     <SafeAreaView style={styles.container}>
       <MaskedView
@@ -20,6 +32,20 @@ const Welcome = () => {
           style={styles.gradientTextGrad}
         />
       </MaskedView>
+      <TextInput
+        onChangeText={text => setUserInput(text)}
+        value={userInput}
+        placeholder="Write your name"
+      />
+      <Button
+        title="Go to the info page"
+        onPress={() => {
+          navigation.navigate('Info', {
+            name: userInput || 'user',
+          });
+          setUserInput('');
+        }}
+      />
     </SafeAreaView>
   );
 };
@@ -39,6 +65,7 @@ const styles = StyleSheet.create({
   },
   gradientTextMask: {
     flexDirection: 'row',
+    flex: 1,
     height: '100%',
   },
   gradientTextView: {
