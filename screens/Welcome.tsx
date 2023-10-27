@@ -1,21 +1,13 @@
 import MaskedView from '@react-native-masked-view/masked-view';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
-import {
-  Button,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import React from 'react';
+import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {RootStackParamList} from '../App';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
 const Welcome = ({navigation}: Props) => {
-  const [userInput, setUserInput] = useState('');
   return (
     <SafeAreaView style={styles.container}>
       <MaskedView
@@ -32,18 +24,10 @@ const Welcome = ({navigation}: Props) => {
           style={styles.gradientTextGrad}
         />
       </MaskedView>
-      <TextInput
-        onChangeText={text => setUserInput(text)}
-        value={userInput}
-        placeholder="Write your name"
-      />
       <Button
-        title="Go to the info page"
+        title="Login / Register"
         onPress={() => {
-          navigation.navigate('Info', {
-            name: userInput || 'user',
-          });
-          setUserInput('');
+          navigation.navigate('Auth');
         }}
       />
     </SafeAreaView>
