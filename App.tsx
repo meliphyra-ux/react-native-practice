@@ -1,11 +1,12 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text} from 'react-native';
 import Svg, {Circle, SvgUri} from 'react-native-svg';
 import Airplane from './assets/svg/airplane-svgrepo-com.svg';
 import LinearGradient from 'react-native-linear-gradient';
+import {NavigationFunctionComponent, Navigation} from 'react-native-navigation';
 // import Welcome from './screens/Welcome';
 
-const App = () => {
+const App: NavigationFunctionComponent = props => {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
@@ -25,6 +26,23 @@ const App = () => {
         <Text style={styles.title}>
           React Native Practice. Made By meliphyra-ux
         </Text>
+        <Button
+          title="Go to the Welcome page"
+          onPress={() =>
+            Navigation.push(props.componentId, {
+              component: {
+                name: 'Welcome',
+                options: {
+                  topBar: {
+                    title: {
+                      text: 'Welcome',
+                    },
+                  },
+                },
+              },
+            })
+          }
+        />
       </LinearGradient>
     </SafeAreaView>
   );
@@ -44,3 +62,11 @@ const styles = StyleSheet.create({
   },
   linearGradient: {flex: 1, alignItems: 'center', justifyContent: 'center'},
 });
+
+App.options = {
+  topBar: {
+    title: {
+      text: 'Home',
+    },
+  },
+};
