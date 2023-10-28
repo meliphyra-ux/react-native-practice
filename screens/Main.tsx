@@ -10,8 +10,29 @@ import Stories from '../tabs/Main/Stories';
 import LogoSvg from '../components/LogoSvg';
 
 import {container} from '../assets/styles/container';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Video from './Video';
 
 const MainTabs = createBottomTabNavigator();
+// To work with nested navigating use: NavigatorScreenParams<NameOfStackParams>
+
+export type StoriesStackParams = {
+  Stories: undefined;
+  Video: {
+    title: string;
+  };
+};
+
+const StoriesStack = createNativeStackNavigator<StoriesStackParams>();
+
+const StoriesStackScreen = () => {
+  return (
+    <StoriesStack.Navigator screenOptions={{headerShown: false}}>
+      <StoriesStack.Screen name="Stories" component={Stories} />
+      <StoriesStack.Screen name="Video" component={Video} />
+    </StoriesStack.Navigator>
+  );
+};
 
 const Main = () => {
   return (
@@ -23,9 +44,10 @@ const Main = () => {
           options={{headerShown: false}}
         />
         <MainTabs.Screen
-          name="Stories"
-          component={Stories}
+          name="StoriesStack"
+          component={StoriesStackScreen}
           options={{
+            title: 'Stories',
             headerShown: false,
             tabBarIcon: () => <LogoSvg />,
           }}

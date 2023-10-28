@@ -1,5 +1,14 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Image, StyleSheet, View, Text} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {StoriesStackParams} from '../screens/Main';
 
 type Video = {
   imgUrl: string;
@@ -9,9 +18,19 @@ type Video = {
 };
 
 const Video = ({video}: {video: Video}) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<StoriesStackParams>>();
   return (
     <View style={styles.videoContainer}>
-      <Image source={{uri: video.imgUrl}} style={styles.videoImage} />
+      <TouchableWithoutFeedback
+        style={{flex: 1}}
+        onPress={() =>
+          navigation.navigate('Video', {
+            title: video.title,
+          })
+        }>
+        <Image source={{uri: video.imgUrl}} style={styles.videoImage} />
+      </TouchableWithoutFeedback>
       <View style={styles.videoInformation}>
         <Text style={[styles.videoInformationText, {fontSize: 18}]}>
           {video.title}

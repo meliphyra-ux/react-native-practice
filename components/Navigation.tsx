@@ -25,7 +25,9 @@ const Navigation = () => {
     <NavigationContainer>
       <RootStack.Navigator screenOptions={headerStyles}>
         {isLoggedIn ? (
-          <RootStack.Screen name="Main" component={Main} />
+          <RootStack.Group>
+            <RootStack.Screen name="Main" component={Main} />
+          </RootStack.Group>
         ) : (
           <RootStack.Group>
             <RootStack.Screen name="Welcome" component={Welcome} />

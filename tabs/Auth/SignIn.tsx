@@ -4,7 +4,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import {container} from '../../assets/styles/container';
 import {AuthContext, loginUser} from '../../contexts/AuthContext';
@@ -21,7 +21,7 @@ const SignIn = () => {
   });
   const {dispatch} = useContext(AuthContext);
   return (
-    <View style={[container.container, {alignItems: 'center'}]}>
+    <View style={[container.container, {alignItems: 'center', rowGap: 8}]}>
       <Text style={styles.inputLabel}>Login:</Text>
       <TextInput
         placeholder="Login"
@@ -42,7 +42,8 @@ const SignIn = () => {
           setUserCredentials(state => ({...state, password}));
         }}
       />
-      <TouchableHighlight
+      <TouchableOpacity
+        style={styles.button}
         onPress={() => {
           if (
             fakeUser.email === userCredentials.email &&
@@ -51,8 +52,8 @@ const SignIn = () => {
             dispatch(loginUser());
           }
         }}>
-        <Text>Log in</Text>
-      </TouchableHighlight>
+        <Text style={{fontSize: 18}}>Log in</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -63,12 +64,26 @@ const styles = StyleSheet.create({
   inputLabel: {
     color: '#d5d5d5',
     fontSize: 22,
+    width: '66%',
   },
   input: {
+    width: '66%',
     backgroundColor: '#161616',
     color: '#d5d5d5',
     padding: 6,
     fontSize: 14,
     flexBasis: 48,
+  },
+  button: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+    shadowColor: 'violet',
+    shadowOffset: {
+      width: 4,
+      height: -4,
+    },
+    shadowRadius: 10,
   },
 });

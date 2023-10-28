@@ -25,6 +25,7 @@ const Auth = () => {
             position: 'absolute',
             backgroundColor: '#000',
           },
+          headerShown: false,
         }}>
         <AuthTabs.Screen name="SignIn" component={SignIn} />
         <AuthTabs.Screen name="SignUp" component={SignUp} />
