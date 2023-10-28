@@ -5,6 +5,7 @@ type Video = {
   imgUrl: string;
   title: string;
   channel: string;
+  views: number;
 };
 
 const Video = ({video}: {video: Video}) => {
@@ -12,8 +13,11 @@ const Video = ({video}: {video: Video}) => {
     <View style={styles.videoContainer}>
       <Image source={{uri: video.imgUrl}} style={styles.videoImage} />
       <View style={styles.videoInformation}>
-        <Text style={styles.videoInformationText}>{video.title}</Text>
+        <Text style={[styles.videoInformationText, {fontSize: 18}]}>
+          {video.title}
+        </Text>
         <Text style={styles.videoInformationText}>{video.channel}</Text>
+        <Text style={styles.videoInformationText}>{video.views} views</Text>
       </View>
     </View>
   );
@@ -25,13 +29,15 @@ const styles = StyleSheet.create({
   videoContainer: {
     flex: 1,
     flexDirection: 'row',
-    height: 75,
+    height: '100%',
     columnGap: 8,
   },
   videoImage: {
     flex: 1,
     flexBasis: 75,
     height: '100%',
+    resizeMode: 'center',
+    objectFit: 'cover',
   },
   videoInformation: {
     flex: 5,

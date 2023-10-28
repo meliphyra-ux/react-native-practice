@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import {
   TextInput,
   View,
@@ -7,11 +7,19 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import {container} from '../../assets/styles/container';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../App';
+import {AuthContext, loginUser} from '../../contexts/AuthContext';
+
+const fakeUser = {
+  email: 'example1@gmail.com',
+  password: '1234',
+};
 
 const SignIn = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [userCredentials, setUserCredentials] = useState({
+    email: '',
+    password: '',
+  });
+  const {dispatch} = useContext(AuthContext);
   return (
     <View style={[container.container, {alignItems: 'center'}]}>
       <Text style={styles.inputLabel}>Login:</Text>
@@ -20,6 +28,9 @@ const SignIn = () => {
         style={styles.input}
         placeholderTextColor="#bababa"
         inputMode="email"
+        onChangeText={email => {
+          setUserCredentials(state => ({...state, email}));
+        }}
       />
       <Text style={styles.inputLabel}>Password:</Text>
       <TextInput
@@ -27,9 +38,20 @@ const SignIn = () => {
         style={styles.input}
         placeholderTextColor="#bababa"
         secureTextEntry={true}
+        onChangeText={password => {
+          setUserCredentials(state => ({...state, password}));
+        }}
       />
-      <TouchableHighlight onPress={() => navigation.navigate('Main')}>
-        <Text>Hello World!</Text>
+      <TouchableHighlight
+        onPress={() => {
+          if (
+            fakeUser.email === userCredentials.email &&
+            fakeUser.password === userCredentials.password
+          ) {
+            dispatch(loginUser());
+          }
+        }}>
+        <Text>Log in</Text>
       </TouchableHighlight>
     </View>
   );

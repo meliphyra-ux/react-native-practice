@@ -1,13 +1,18 @@
-import MaskedView from '@react-native-masked-view/masked-view';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {FC} from 'react';
+
 import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+
+import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
-import {RootStackParamList} from '../App';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackScreenProps} from '../components/Navigation';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
+type WelcomeScreenProps = NativeStackScreenProps<
+  RootStackScreenProps,
+  'Welcome'
+>;
 
-const Welcome = ({navigation}: Props) => {
+const Welcome: FC<WelcomeScreenProps> = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <MaskedView
@@ -26,9 +31,7 @@ const Welcome = ({navigation}: Props) => {
       </MaskedView>
       <Button
         title="Login / Register"
-        onPress={() => {
-          navigation.navigate('Auth');
-        }}
+        onPress={() => navigation.navigate('Auth')}
       />
     </SafeAreaView>
   );
