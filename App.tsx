@@ -1,8 +1,9 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {Alert, Button, SafeAreaView, StyleSheet, Text} from 'react-native';
 import Svg, {Circle, SvgUri} from 'react-native-svg';
 import Airplane from './assets/svg/airplane-svgrepo-com.svg';
 import LinearGradient from 'react-native-linear-gradient';
+import Config from 'react-native-config';
 // import Welcome from './screens/Welcome';
 
 const App = () => {
@@ -25,6 +26,12 @@ const App = () => {
         <Text style={styles.title}>
           React Native Practice. Made By meliphyra-ux
         </Text>
+        <Button
+          title="Show super secret info"
+          onPress={() => {
+            Alert.alert('Secret info', Config.SECRET_INFO ?? '');
+          }}
+        />
       </LinearGradient>
     </SafeAreaView>
   );
